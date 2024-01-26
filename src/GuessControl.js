@@ -1,32 +1,34 @@
 import React, { useState } from "react";
+import React, { useState } from "react";
 import Button from "./Button";
 
 function GuessControl({ onGuess }) {
-  // Create a new state variable currentGuess with setter setCurrentGuess
-  // and default value of an empty string.
+  // State for the user's guess
   const [currentGuess, setCurrentGuess] = useState("");
 
-  // Create a handleInputChange function within the component
-  // that updates the currentGuess state value when the user changes the value in the input.
+  // Updates the state with the user's input
   const handleInputChange = (event) => {
     setCurrentGuess(event.target.value);
   };
 
-  // Create an onSubmitGuess function that calls the onGuess prop
-  // with the currentGuess value converted to a number
-  // and also resets the currentGuess to an empty string when it is called.
+  // Submits the guess to the parent component
   const onSubmitGuess = () => {
-    // Since the values from an HTML input are strings by default,
-    // convert to a number for the returned guess value
-    // by passing in the string to the Number function.
-    onGuess(Number(currentGuess));
+    // Convert the currentGuess to a number
+    const guess = Number(currentGuess);
+
+    // Invoke the onGuess prop with the guess
+    onGuess(guess);
+
+    // Reset the currentGuess to an empty string
     setCurrentGuess("");
   };
 
-  // Return the JSX structure
   return (
     <div>
+      {/* Input for the user's guess */}
       <input type="number" value={currentGuess} onChange={handleInputChange} />
+
+      {/* Button to submit the guess */}
       <Button onClick={onSubmitGuess}>Submit Guess</Button>
     </div>
   );
